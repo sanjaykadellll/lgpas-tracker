@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>अनुगमन सूचक ड्यासबोर्ड | Compliance Deadline Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1419; --panel:#161d27; --panel2:#1c2530; --border:#2a3441;
+    --text:#e8edf3; --muted:#8a97a8; --accent:#3ea6ff;
+    --ok:#3ecf8e; --warn:#f0a93c; --danger:#f0563c; --done:#5c6672;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Noto Sans Devanagari','Inter',sans-serif;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:960px;margin:0 auto;}
+  header{margin-bottom:24px;}
+  h1{font-size:1.5rem;margin:0 0 4px;font-weight:700;}
+  .sub{color:var(--muted);font-size:0.9rem;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
+  .card .num{font-size:1.6rem;font-weight:700;}
+  .card .lbl{color:var(--muted);font-size:0.78rem;margin-top:2px;}
+  .card.overdue .num{color:var(--danger);}
+  .card.soon .num{color:var(--warn);}
+  .card.ok .num{color:var(--ok);}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0;}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;}
+  .tab{background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;font-size:0.85rem;cursor:pointer;}
+  .tab.active{background:var(--accent);color:#00121f;border-color:var(--accent);font-weight:600;}
+  .btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:8px;font-size:0.85rem;cursor:pointer;}
+  .btn:hover{border-color:var(--accent);}
+  .btn.primary{background:var(--accent);color:#00121f;border-color:var(--accent);font-weight:600;}
+  select{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:8px;font-size:0.85rem;font-family:inherit;}
+  #notifStatus{font-size:0.78rem;color:var(--muted);margin-left:auto;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  .item{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
+  .item.overdue{border-left:4px solid var(--danger);}
+  .item.soon{border-left:4px solid var(--warn);}
+  .item.upcoming{border-left:4px solid var(--ok);}
+  .item.done{opacity:0.5;border-left:4px solid var(--done);}
+  .item input[type=checkbox]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--accent);cursor:pointer;}
+  .item .body{flex:1;min-width:0;}
+  .item .title{font-size:0.94rem;line-height:1.4;}
+  .item .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:0.78rem;color:var(--muted);}
+  .badge{padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;}
+  .badge.overdue{background:rgba(240,86,60,0.15);color:var(--danger);}
+  .badge.soon{background:rgba(240,169,60,0.15);color:var(--warn);}
+  .badge.upcoming{background:rgba(62,207,142,0.15);color:var(--ok);}
+  .badge.done{background:rgba(92,102,114,0.2);color:var(--done);}
+  .pts{font-weight:600;color:var(--accent);}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:50;padding:16px;}
+  .modal-bg.show{display:flex;}
+  .modal{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;max-width:480px;width:100%;max-height:80vh;overflow:auto;}
+  .modal h3{margin-top:0;}
+  .modal p{color:var(--muted);font-size:0.85rem;line-height:1.5;}
+  footer{margin-top:30px;color:var(--muted);font-size:0.78rem;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🏛️ अनुगमन तथा सूचक पेश गर्ने म्याद ट्र्याकर</h1>
+    <div class="sub">Compliance Document Submission Deadline Tracker — स्थानीय तह</div>
+  </header>
+
+  <div class="toolbar" style="margin-top:0;">
+    <label for="fySelect" style="font-size:0.85rem;color:var(--muted);">आ.व. (Fiscal Year):</label>
+    <select id="fySelect" onchange="setSelectedFY(this.value)"></select>
+    <span id="fyRange" style="font-size:0.78rem;color:var(--muted);"></span>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="toolbar">
+    <div class="tabs" id="tabs"></div>
+    <button class="btn" onclick="openSettings()">⚙️ मिति सेटिङ</button>
+    <button class="btn primary" id="notifBtn" onclick="requestNotif()">🔔 सूचना सक्रिय गर्नुहोस्</button>
+    <span id="notifStatus"></span>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>
+    कुल बुँदा: <span id="totalPts"></span> | पूरा भएको: <span id="donePts"></span><br>
+    मिति अनुमानित (BS→AD रूपान्तरण); हरेक वर्ष ⚙️ सेटिङमा गएर पुष्टि गर्नुहोस्।
+  </footer>
+</div>
+
+<div class="modal-bg" id="settingsModal">
+  <div class="modal">
+    <h3>मिति सेटिङ (BS महिना अन्त्यको अनुमानित AD मिति)</h3>
+    <p>यी मितिहरू अनुमानित हुन् (±1-2 दिन फरक पर्न सक्छ)। सही मिति थाहा भएमा समायोजन गर्नुहोस्।</p>
+    <div id="dateSettingsList"></div>
+    <div style="display:flex;gap:8px;margin-top:16px;">
+      <button class="btn primary" onclick="saveSettings()">सुरक्षित गर्नुहोस्</button>
+      <button class="btn" onclick="closeSettings()">बन्द गर्नुहोस्</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Data embedded directly (no fetch) so this works instantly on GitHub Pages,
+// when opened as a local file, and regardless of server MIME/CORS quirks.
+// This is the same content as data.json — the email script (scripts/check_deadlines.py)
+// reads data.json separately, so if you edit items here, mirror the change there too.
+const DATA = {
+  "dates": {
+    "shrawan10":  {"m":7,  "d":26, "off":0, "label":"श्रावण १० गते"},
+    "shrawanEnd": {"m":8,  "d":16, "off":0, "label":"श्रावण मसान्त"},
+    "bhadraEnd":  {"m":9,  "d":16, "off":0, "label":"भाद्र मसान्त"},
+    "kartikEnd":  {"m":11, "d":16, "off":0, "label":"कार्तिक मसान्त / कार्तिक ३०"},
+    "mangsirEnd": {"m":12, "d":15, "off":0, "label":"मंसिर मसान्त / मङ्शिर ३०"},
+    "poushEnd":   {"m":1,  "d":14, "off":1, "label":"पौष मसान्त"},
+    "maghEnd":    {"m":2,  "d":12, "off":1, "label":"माघ मसान्त"},
+    "falgunEnd":  {"m":3,  "d":13, "off":1, "label":"फाल्गुन ३०"},
+    "chaitraEnd": {"m":4,  "d":12, "off":1, "label":"चैत्र मसान्त"},
+    "baisakhEnd": {"m":5,  "d":14, "off":1, "label":"बैसाख मसान्त (अनुमानित)"},
+    "jesthaEnd":  {"m":6,  "d":14, "off":1, "label":"जेष्ठ ३०"},
+    "ashadhEnd":  {"m":7,  "d":15, "off":1, "label":"असार मसान्त"}
+  },
+  "items": [
+    {"id":1, "title":"वार्षिक बजेट तथा कार्यक्रम पुस्तिकाको कुनै एक पाना", "pts":0.30, "dl":"shrawanEnd"},
+    {"id":2, "title":"मापदण्ड बमोजिम छनौट र प्राथमिकीकरण गरी कार्यपालिकाबाट स्वीकृत आयोजनाहरुको प्रमाणित सूची", "pts":0.40, "dl":"shrawanEnd"},
+    {"id":3, "title":"मध्ययमकालीन खर्च संरचना", "pts":0.30, "dl":"shrawanEnd"},
+    {"id":4, "title":"वार्षिक बजेट तथा कार्यक्रम प्रति", "pts":0.30, "dl":"shrawanEnd"},
+    {"id":5, "title":"आयोजना कार्यक्रमको दिगो विकास लक्ष्य साङ्केतीकरण गरिएको वार्षिक बजेट तथा कार्यक्रमको पानाको छायाँप्रति", "pts":0.40, "dl":"shrawanEnd"},
+    {"id":6, "title":"स्रोत अनुमान तथा बजेट सीमा निर्धारण समितिको आय प्रक्षेपण र बजेट सीमा निर्धारण निर्णय", "pts":0.30, "dl":"poushEnd"},
+    {"id":7, "title":"आगामी आ.व.को राजस्व र व्ययको अनुमान (बजेट) सभामा पेश भएको प्रमाणित प्रति", "pts":0.60, "dl":"shrawan10", "note":"असार १० गते सभामा पेश हुनुपर्ने, श्रावण १० गतेभित्र अपलोड"},
+    {"id":8, "title":"बजेट तथा कार्यक्रम सभाबाट पारित भएको प्रमाणित प्रति", "pts":0.40, "dl":"shrawanEnd", "note":"असार मसान्तभित्र पारित, श्रावण मसान्तभित्र अपलोड"},
+    {"id":9, "title":"वार्षिक बजेट तथा कार्यक्रममा अबण्डा नराखी बजेट बाँडफाँट गरिएको प्रमाणित प्रति", "pts":0.60, "dl":"shrawanEnd"},
+    {"id":10, "title":"आन्तरिक आय एवम् राजस्व बाँडफाँट आय र प्रशासनिक खर्च बजेटको तुलनात्मक विवरण", "pts":0.40, "dl":"shrawanEnd"},
+    {"id":11, "title":"आयोजना/कार्यक्रमको स्वीकृत वार्षिक कार्यान्वयन कार्ययोजना", "pts":0.30, "dl":"bhadraEnd"},
+    {"id":12, "title":"खरिद गुरुयोजनाको प्रति", "pts":0.30, "dl":"bhadraEnd"},
+    {"id":13, "title":"नागरिकका सरोकारका सूचना तथा विवरण — अघिल्लो आ.व. चौथो त्रैमासिक", "pts":0.10, "dl":"shrawanEnd"},
+    {"id":14, "title":"नागरिकका सरोकारका सूचना तथा विवरण — पहिलो त्रैमासिक", "pts":0.10, "dl":"kartikEnd"},
+    {"id":15, "title":"नागरिकका सरोकारका सूचना तथा विवरण — दोश्रो त्रैमासिक", "pts":0.10, "dl":"maghEnd"},
+    {"id":16, "title":"नागरिकका सरोकारका सूचना तथा विवरण — तेस्रो त्रैमासिक", "pts":0.10, "dl":"baisakhEnd"},
+    {"id":17, "title":"पहिलो चौमासिक सार्वजनिक सुनुवाइ कार्यक्रमको प्रतिवेदन", "pts":0.20, "dl":"mangsirEnd"},
+    {"id":18, "title":"दोस्रो चौमासिक सार्वजनिक सुनुवाइ कार्यक्रमको प्रतिवेदन", "pts":0.20, "dl":"chaitraEnd"},
+    {"id":19, "title":"तेस्रो चौमासिक सार्वजनिक सुनुवाइ कार्यक्रमको प्रतिवेदन", "pts":0.20, "dl":"shrawanEnd", "note":"आगामी आ.व.को श्रावण मसान्त"},
+    {"id":20, "title":"वार्षिक समीक्षा बैठकको आधारमा वार्षिक प्रगति प्रतिवेदन", "pts":0.30, "dl":"shrawanEnd"},
+    {"id":21, "title":"पहिलो त्रैमासिक समीक्षा बैठकको निर्णय सहितको प्रतिवेदन", "pts":0.10, "dl":"mangsirEnd"},
+    {"id":22, "title":"दोश्रो त्रैमासिक/अर्धवार्षिक समीक्षा बैठकको निर्णय सहितको प्रतिवेदन", "pts":0.10, "dl":"falgunEnd"},
+    {"id":23, "title":"तेस्रो त्रैमासिक समीक्षा बैठकको निर्णय सहितको प्रतिवेदन", "pts":0.10, "dl":"jesthaEnd"},
+    {"id":24, "title":"गैर सरकारी संस्थाका कार्यक्रमको प्रगति खुल्ने वार्षिक प्रगति प्रतिवेदनको छायाँ प्रति", "pts":0.40, "dl":"kartikEnd"},
+    {"id":25, "title":"कार्यपालिकाबाट स्वीकृत दिगो सुधारको समष्टिगत कार्ययोजना", "pts":0.40, "dl":"chaitraEnd"},
+    {"id":26, "title":"वित्तिय कारोबारको एकीकृत वित्तीय प्रतिवेदन (भिडान गरी तयार)", "pts":0.30, "dl":"kartikEnd"},
+    {"id":27, "title":"वित्तिय कारोबार एकीकृत वित्तीय प्रतिवेदन प्रदेश/कोष लेखा नियन्त्रक कार्यालयमा पठाएको", "pts":0.30, "dl":"kartikEnd"},
+    {"id":28, "title":"पहिलो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"kartikEnd"},
+    {"id":29, "title":"दोस्रो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"maghEnd"},
+    {"id":30, "title":"तेस्रो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"baisakhEnd", "note":"मूल कागजातमा मिति उल्लेख थिएन — ढाँचा अनुसार अनुमानित"},
+    {"id":31, "title":"चौथो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"shrawanEnd"},
+    {"id":32, "title":"बाँकी रकम फिर्ता दाखिला गरेको भौचर/प्रमाणको छायाँप्रति", "pts":0.40, "dl":"shrawanEnd"},
+    {"id":33, "title":"मानव अधिकार सम्बन्धी राष्ट्रिय कार्ययोजना कार्यान्वयन प्रगति — अर्धवार्षिक", "pts":0.20, "dl":"poushEnd"},
+    {"id":34, "title":"मानव अधिकार सम्बन्धी राष्ट्रिय कार्ययोजना कार्यान्वयन प्रगति — वार्षिक", "pts":0.20, "dl":"shrawanEnd"},
+    {"id":35, "title":"कूल निकाय मध्ये विद्युतीय हाजिरी कार्यान्वयनमा ल्याएका निकायको विवरण", "pts":0.00, "dl":"shrawanEnd"}
+  ]
+};
+let DEFAULT_DATES = DATA.dates;
+let ITEMS = DATA.items;
+
+const LS_DATES='deadline_tracker_dates_v1';
+const LS_DONE='deadline_tracker_done_v1';
+const LS_NOTIFIED='deadline_tracker_notified_v1';
+const LS_FY='deadline_tracker_fy_v1';
+
+function getDates(){
+  const saved = JSON.parse(localStorage.getItem(LS_DATES)||'null');
+  return saved || JSON.parse(JSON.stringify(DEFAULT_DATES));
+}
+function getDone(){ return JSON.parse(localStorage.getItem(LS_DONE)||'{}'); }
+function setDone(o){ localStorage.setItem(LS_DONE, JSON.stringify(o)); }
+
+function autoFYStartYear(today){
+  // FY starts mid-Shrawan (~Jul 16). If today is on/after Jul 16, FY start = this AD year, else previous year.
+  const cutoff = new Date(today.getFullYear(), 6, 16); // July 16
+  return today >= cutoff ? today.getFullYear() : today.getFullYear()-1;
+}
+
+// BS year runs ~57 years ahead of AD for the Shrawan-start fiscal year.
+function adYearToBSLabel(adStartYear){
+  const bsStart = adStartYear + 57;
+  const bsEnd = bsStart + 1;
+  return `${bsStart}/${String(bsEnd).slice(-2)}`;
+}
+
+function getSelectedFY(){
+  const saved = localStorage.getItem(LS_FY);
+  return saved ? parseInt(saved) : autoFYStartYear(new Date());
+}
+function setSelectedFY(y){
+  localStorage.setItem(LS_FY, y);
+  populateFYSelect();
+  render();
+}
+function populateFYSelect(){
+  const auto = autoFYStartYear(new Date());
+  const selected = getSelectedFY();
+  const sel = document.getElementById('fySelect');
+  const options = [];
+  for(let y=auto-1; y<=auto+3; y++){
+    const isAuto = y===auto;
+    options.push(`<option value="${y}" ${y===selected?'selected':''}>आ.व. ${adYearToBSLabel(y)}${isAuto?' (चालू)':''}</option>`);
+  }
+  sel.innerHTML = options.join('');
+  const rangeStart = new Date(selected,6,16);
+  const rangeEnd = new Date(selected+1,6,15);
+  document.getElementById('fyRange').textContent =
+    `(${rangeStart.toLocaleDateString('en-CA')} — ${rangeEnd.toLocaleDateString('en-CA')})`;
+}
+
+function computeDeadline(dl, fyStart, DATES){
+  const d = DATES[dl];
+  const year = fyStart + d.off;
+  return new Date(year, d.m-1, d.d);
+}
+
+function daysUntil(date, today){
+  const a = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const b = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return Math.round((b-a)/86400000);
+}
+
+let currentFilter = 'all';
+
+function render(){
+  const today = new Date();
+  const DATES = getDates();
+  const done = getDone();
+
+  const fy = getSelectedFY();
+  const enriched = ITEMS.map(it=>{
+    const ddate = computeDeadline(it.dl, fy, DATES);
+    const diff = daysUntil(ddate, today);
+    const isDone = !!done[it.id];
+    let status = 'upcoming';
+    if(isDone) status='done';
+    else if(diff<0) status='overdue';
+    else if(diff<=5) status='soon';
+    return {...it, ddate, diff, isDone, status};
+  }).sort((a,b)=> a.ddate - b.ddate);
+
+  // cards
+  const overdue = enriched.filter(x=>x.status==='overdue').length;
+  const soon = enriched.filter(x=>x.status==='soon').length;
+  const doneCount = enriched.filter(x=>x.status==='done').length;
+  document.getElementById('cards').innerHTML = `
+    <div class="card overdue"><div class="num">${overdue}</div><div class="lbl">म्याद नाघेको</div></div>
+    <div class="card soon"><div class="num">${soon}</div><div class="lbl">५ दिनभित्र (चाँडै)</div></div>
+    <div class="card ok"><div class="num">${doneCount}</div><div class="lbl">पूरा भएको</div></div>
+    <div class="card"><div class="num">${ITEMS.length}</div><div class="lbl">कुल सूचक</div></div>
+  `;
+
+  // tabs
+  const tabs=[['all','सबै'],['overdue','म्याद नाघेको'],['soon','चाँडै'],['upcoming','आगामी'],['done','पूरा भएको']];
+  document.getElementById('tabs').innerHTML = tabs.map(([k,l])=>
+    `<button class="tab ${currentFilter===k?'active':''}" onclick="setFilter('${k}')">${l}</button>`).join('');
+
+  // list
+  const filtered = currentFilter==='all' ? enriched : enriched.filter(x=>x.status===currentFilter);
+  document.getElementById('list').innerHTML = filtered.map(it=>{
+    const dateStr = it.ddate.toLocaleDateString('en-CA'); // YYYY-MM-DD
+    let badgeText = it.status==='overdue' ? `${Math.abs(it.diff)} दिन ढिलो`
+                  : it.status==='soon' ? `${it.diff} दिन बाँकी`
+                  : it.status==='done' ? 'पूरा भयो'
+                  : `${it.diff} दिन बाँकी`;
+    return `<div class="item ${it.status}">
+      <input type="checkbox" ${it.isDone?'checked':''} onchange="toggleDone(${it.id})">
+      <div class="body">
+        <div class="title">${it.title}</div>
+        <div class="meta">
+          <span class="badge ${it.status}">${badgeText}</span>
+          <span class="pts">${it.pts.toFixed(2)} पूर्णांक</span>
+          <span>म्याद: ${DATES[it.dl].label} (~${dateStr})</span>
+        </div>
+        ${it.note?`<div class="meta" style="margin-top:2px;"><span>📝 ${it.note}</span></div>`:''}
+      </div>
+    </div>`;
+  }).join('') || '<p style="color:var(--muted)">यस फिल्टरमा कुनै सूचक छैन।</p>';
+
+  document.getElementById('totalPts').textContent = ITEMS.reduce((s,i)=>s+i.pts,0).toFixed(2);
+  document.getElementById('donePts').textContent = ITEMS.filter(i=>done[i.id]).reduce((s,i)=>s+i.pts,0).toFixed(2);
+
+  checkNotifications(enriched);
+}
+
+function setFilter(k){ currentFilter=k; render(); }
+function toggleDone(id){
+  const done = getDone();
+  done[id] = !done[id];
+  setDone(done);
+  render();
+}
+
+// ---- Settings modal ----
+function openSettings(){
+  const DATES = getDates();
+  document.getElementById('dateSettingsList').innerHTML = Object.entries(DATES).map(([k,v])=>`
+    <div style="display:flex;align-items:center;gap:8px;margin:6px 0;font-size:0.85rem;">
+      <span style="flex:1;">${v.label}</span>
+      <input type="number" min="1" max="12" value="${v.m}" style="width:44px" id="m_${k}"> /
+      <input type="number" min="1" max="31" value="${v.d}" style="width:44px" id="d_${k}">
+    </div>`).join('');
+  document.getElementById('settingsModal').classList.add('show');
+}
+function closeSettings(){ document.getElementById('settingsModal').classList.remove('show'); }
+function saveSettings(){
+  const DATES = getDates();
+  Object.keys(DATES).forEach(k=>{
+    DATES[k].m = parseInt(document.getElementById('m_'+k).value)||DATES[k].m;
+    DATES[k].d = parseInt(document.getElementById('d_'+k).value)||DATES[k].d;
+  });
+  localStorage.setItem(LS_DATES, JSON.stringify(DATES));
+  closeSettings();
+  render();
+}
+
+// ---- Notifications ----
+function updateNotifStatus(){
+  const el = document.getElementById('notifStatus');
+  const btn = document.getElementById('notifBtn');
+  if(!('Notification' in window)){ el.textContent='यो ब्राउजरले सूचना समर्थन गर्दैन'; btn.style.display='none'; return; }
+  if(Notification.permission==='granted'){ el.textContent='✅ सूचना सक्रिय छ'; btn.style.display='none'; }
+  else if(Notification.permission==='denied'){ el.textContent='❌ सूचना ब्लक गरिएको'; btn.style.display='none'; }
+  else { el.textContent=''; btn.style.display='inline-block'; }
+}
+function requestNotif(){
+  Notification.requestPermission().then(()=>{ updateNotifStatus(); render(); });
+}
+function checkNotifications(enriched){
+  if(!('Notification' in window) || Notification.permission!=='granted') return;
+  const notified = JSON.parse(localStorage.getItem(LS_NOTIFIED)||'{}');
+  const todayKey = new Date().toISOString().slice(0,10);
+  enriched.filter(x=>x.status==='soon' && !x.isDone).forEach(x=>{
+    const key = `${x.id}_${todayKey}`;
+    if(!notified[key]){
+      new Notification('⏰ म्याद नजिकिँदै छ', {
+        body: `${x.title}\nबाँकी ${x.diff} दिन (${x.pts.toFixed(2)} पूर्णांक)`,
+        tag: 'deadline_'+x.id
+      });
+      notified[key]=true;
+    }
+  });
+  localStorage.setItem(LS_NOTIFIED, JSON.stringify(notified));
+}
+
+// check every hour while the tab stays open (in addition to on-load check)
+setInterval(render, 60*60*1000);
+
+populateFYSelect();
+updateNotifStatus();
+render();
+
+</script>
+</body>
+</html>
