@@ -792,32 +792,7 @@
     "department": "",
     "reciver_email": ""
   },
-  {
-    "sn": 100,
-    "indicator_no": "1.5.11",
-    "indicator": "अनुदान व्यवस्थापन",
-    "sub_indicator_no": "1.5.11.2",
-    "sub_indicator": "नेपाल सरकार तथा प्रदेश सरकारबाट प्राप्त अनुदानको खर्च नभई बाँकी रहेको रकम फिर्ता गरेको",
-    "document": "क. बाँकी रकम फिर्ता दाखिला गरेको भौचर/प्रमाणको छायाँप्रति",
-    "specified_date": "06/29",
-    "deadline_nepali": "श्रावण मसान्त भित्र",
-    "score": 0.4,
-    "department": "",
-    "reciver_email": "kadelsanjay24@gmail.com"
-  },
-    {
-    "sn": 160,
-    "indicator_no": "1.5.8",
-    "indicator": "आन्तरिक लेखा परीक्षण",
-    "sub_indicator_no": "1.5.8.1",
-    "sub_indicator": "त्रैमासिक रूपमा आन्तरिक लेखापरीक्षण सम्पन्न गरी सोको प्रतिवेदन अध्यक्ष/प्रमुख समक्ष पेश भएको",
-    "document": "घ. अध्यक्ष/ प्रमुख समक्ष पेश भएको चौथो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन",
-    "specified_date": "04/32",
-    "deadline_nepali": "श्रावण मसान्त भित्र",
-    "score": 0.15,
-    "department": "",
-    "reciver_email": "kadelsanjay05@gmail.com"
-  },
+ 
   {
     "sn": 62,
     "indicator_no": "1.6.2",
