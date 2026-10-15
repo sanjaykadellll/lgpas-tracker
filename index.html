@@ -1,361 +1,661 @@
 <!DOCTYPE html>
-<html lang="ne">
+<html lang="ne" class="h-full">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LGPAS म्याद ट्र्याकर | LGPAS Deadline Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0f1419; --panel:#161d27; --panel2:#1c2530; --border:#2a3441;
-    --text:#e8edf3; --muted:#8a97a8; --accent:#3ea6ff;
-    --ok:#3ecf8e; --warn:#f0a93c; --danger:#f0563c; --done:#5c6672;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:'Noto Sans Devanagari','Inter',sans-serif;
-    padding:24px 16px 60px;
-  }
-  .wrap{max-width:960px;margin:0 auto;}
-  header{margin-bottom:24px;}
-  h1{font-size:1.5rem;margin:0 0 4px;font-weight:700;}
-  .sub{color:var(--muted);font-size:0.9rem;}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
-  .card .num{font-size:1.6rem;font-weight:700;}
-  .card .lbl{color:var(--muted);font-size:0.78rem;margin-top:2px;}
-  .card.overdue .num{color:var(--danger);}
-  .card.soon .num{color:var(--warn);}
-  .card.ok .num{color:var(--ok);}
-  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0;}
-  .tabs{display:flex;gap:6px;flex-wrap:wrap;}
-  .tab{background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;font-size:0.85rem;cursor:pointer;}
-  .tab.active{background:var(--accent);color:#00121f;border-color:var(--accent);font-weight:600;}
-  .btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:8px;font-size:0.85rem;cursor:pointer;}
-  .btn:hover{border-color:var(--accent);}
-  .btn.primary{background:var(--accent);color:#00121f;border-color:var(--accent);font-weight:600;}
-  select{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:8px;font-size:0.85rem;font-family:inherit;}
-  #notifStatus{font-size:0.78rem;color:var(--muted);margin-left:auto;}
-  table{width:100%;border-collapse:collapse;margin-top:8px;}
-  .item{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
-  .item.overdue{border-left:4px solid var(--danger);}
-  .item.soon{border-left:4px solid var(--warn);}
-  .item.upcoming{border-left:4px solid var(--ok);}
-  .item.done{opacity:0.5;border-left:4px solid var(--done);}
-  .item input[type=checkbox]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--accent);cursor:pointer;}
-  .item .body{flex:1;min-width:0;}
-  .item .title{font-size:0.94rem;line-height:1.4;}
-  .item .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:0.78rem;color:var(--muted);}
-  .badge{padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;}
-  .badge.overdue{background:rgba(240,86,60,0.15);color:var(--danger);}
-  .badge.soon{background:rgba(240,169,60,0.15);color:var(--warn);}
-  .badge.upcoming{background:rgba(62,207,142,0.15);color:var(--ok);}
-  .badge.done{background:rgba(92,102,114,0.2);color:var(--done);}
-  .pts{font-weight:600;color:var(--accent);}
-  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:50;padding:16px;}
-  .modal-bg.show{display:flex;}
-  .modal{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;max-width:480px;width:100%;max-height:80vh;overflow:auto;}
-  .modal h3{margin-top:0;}
-  .modal p{color:var(--muted);font-size:0.85rem;line-height:1.5;}
-  footer{margin-top:30px;color:var(--muted);font-size:0.78rem;text-align:center;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LGPAS स्वमूल्याङ्कन तथा कार्यतालिका पोर्टल</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0a2a5e;
+      --navy-2: #14438f;
+      --navy-3: #061a3d;
+      --crimson: #c8102e;
+      --bg: #eff2f8;
+      --surface: #ffffff;
+      --ink: #101c36;
+      --muted: #55627a;
+      --faint: #8793a8;
+      --line: #dbe2ee;
+      --line-soft: #e9eef6;
+      --ok: #0b7a49;
+      --warn: #b45309;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { background: var(--bg); color: var(--ink); }
+    body {
+      font-family: 'Mukta', 'Noto Sans Devanagari', system-ui, sans-serif;
+      font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; min-height: 100vh;
+      font-variant-numeric: tabular-nums;
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #e8edf6; }
+    ::-webkit-scrollbar-thumb { background: #b4c0d4; border-radius: 99px; border: 2px solid #e8edf6; }
+
+    /* ---------- header ---------- */
+    .gov-bar {
+      position: relative; color: #fff; border-bottom: 4px solid var(--crimson);
+      background:
+        radial-gradient(700px 240px at 92% -40%, rgba(255,255,255,.14), transparent 70%),
+        radial-gradient(500px 200px at 0% 120%, rgba(200,16,46,.28), transparent 70%),
+        linear-gradient(180deg, var(--navy-2) 0%, var(--navy) 45%, var(--navy-3) 100%);
+    }
+    .gov-bar::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(90deg, transparent, #000 40%, #000);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 40%, #000);
+    }
+    .gov-inner { position: relative; z-index: 1; }
+    .emblem {
+      width: 56px; height: 56px; border-radius: 50%; background: #fff; display: grid; place-items: center;
+      box-shadow: 0 0 0 4px rgba(255,255,255,.2), 0 10px 24px -8px rgba(0,0,0,.5);
+    }
+    .clock-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .dt-chip {
+      display: inline-flex; align-items: center; gap: 9px; height: 36px; padding: 0 14px; border-radius: 10px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(6px);
+      font-size: 15px; font-weight: 600; color: #fff; white-space: nowrap;
+    }
+    .dt-chip svg { width: 16px; height: 16px; color: #ffd7dd; }
+    .dt-chip .muted { color: #bcd0f2; font-weight: 500; font-size: 13.5px; }
+    .dt-time { font-size: 17px; font-weight: 700; letter-spacing: .02em; min-width: 148px; }
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 9px; height: 38px; padding: 0 14px; border-radius: 99px;
+      font-size: 13.5px; font-weight: 600; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
+      color: #fff; cursor: pointer; transition: background .15s; font-family: inherit;
+    }
+    .live-pill:hover { background: rgba(255,255,255,.22); }
+    .live-dot { width: 9px; height: 9px; border-radius: 99px; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.3); }
+    .live-dot.off { background: #fb7185; box-shadow: 0 0 0 3px rgba(251,113,133,.3); }
+    .spin { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- cards & fields ---------- */
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 12px 28px -16px rgba(16,24,40,.18); }
+
+    .field {
+      height: 44px; border-radius: 11px; padding: 0 14px; background: #fff; border: 1px solid #c6d0e0;
+      color: var(--ink); font-size: 15px; font-weight: 500; outline: none; transition: border-color .15s, box-shadow .15s;
+      font-family: inherit;
+    }
+    .field::placeholder { color: var(--faint); }
+    .field:hover { border-color: #a9b6cb; }
+    .field:focus { border-color: var(--navy-2); box-shadow: 0 0 0 4px rgba(20,67,143,.15); }
+    select.field { cursor: pointer; appearance: none; padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2355627a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 13px center; }
+
+    .tabs { display: inline-flex; flex-wrap: wrap; padding: 4px; gap: 4px; border-radius: 13px; background: #e6ecf6; border: 1px solid var(--line); }
+    .tab {
+      height: 40px; padding: 0 16px; border-radius: 10px; font-size: 15px; font-weight: 600; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 10px; cursor: pointer; transition: all .15s; font-family: inherit;
+    }
+    .tab:hover { color: var(--navy); }
+    .tab .count { min-width: 28px; height: 22px; padding: 0 8px; border-radius: 99px; font-size: 13px; font-weight: 700;
+      display: inline-grid; place-items: center; background: #d3dcec; color: var(--navy); }
+    .tab.active { background: var(--navy); color: #fff; box-shadow: 0 6px 14px -6px rgba(10,42,94,.7); }
+    .tab.active .count { background: rgba(255,255,255,.22); color: #fff; }
+    .tab[data-filter="ended"].active { background: var(--crimson); box-shadow: 0 6px 14px -6px rgba(200,16,46,.7); }
+    .tab[data-filter="upcoming"].active { background: var(--ok); box-shadow: 0 6px 14px -6px rgba(11,122,73,.7); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 15px; border-radius: 11px;
+      font-size: 14.5px; font-weight: 600; cursor: pointer; background: #fff; color: var(--navy);
+      border: 1px solid #c6d0e0; transition: all .15s; font-family: inherit;
+    }
+    .btn:hover { background: #f0f5fc; border-color: var(--navy-2); }
+    .btn svg { width: 16px; height: 16px; }
+
+    /* ---------- table ---------- */
+    .tbl { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .tbl thead th {
+      position: sticky; top: 0; z-index: 5; text-align: left; padding: 15px 16px; font-size: 14.5px; font-weight: 700;
+      color: #fff; background: linear-gradient(180deg, var(--navy-2), var(--navy)); white-space: nowrap;
+      border-bottom: 3px solid var(--crimson);
+    }
+    .tbl tbody td { padding: 18px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: top; font-size: 15px; }
+    .tbl tbody tr { transition: background .12s; }
+    .tbl tbody tr:nth-child(even) { background: #fafbfe; }
+    .tbl tbody tr:hover { background: #edf3fc; }
+    .tbl tbody tr:last-child td { border-bottom: 0; }
+    .tbl tbody tr.row-ended td:first-child { box-shadow: inset 5px 0 0 var(--crimson); }
+    .tbl tbody tr.row-soon td:first-child { box-shadow: inset 5px 0 0 #f59e0b; }
+    .tbl tbody tr.row-upcoming td:first-child { box-shadow: inset 5px 0 0 var(--ok); }
+
+    .code-chip { display: inline-block; padding: 3px 11px; border-radius: 7px; font-size: 14px; font-weight: 700;
+      background: #e6edfa; color: var(--navy); border: 1px solid #c9d6ee; letter-spacing: .02em; }
+    .score-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 58px; height: 30px; padding: 0 11px;
+      border-radius: 9px; font-weight: 800; font-size: 14.5px; color: var(--navy); background: #fff; border: 1.6px solid var(--navy); }
+    .chip { display: inline-flex; align-items: center; min-height: 28px; padding: 2px 12px; border-radius: 7px; font-size: 14px; font-weight: 600; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 13px; border-radius: 99px;
+      font-size: 14px; font-weight: 700; white-space: nowrap;
+    }
+    .badge i { width: 8px; height: 8px; border-radius: 99px; background: currentColor; display: inline-block; }
+    .badge.ended { color: var(--crimson); background: #fdeaed; border: 1px solid #f5c2ca; }
+    .badge.upcoming { color: var(--ok); background: #e4f5ec; border: 1px solid #b4e2c8; }
+    .badge.soon { color: var(--warn); background: #fef2de; border: 1px solid #f6d7a3; }
+    .badge.none { color: var(--muted); background: #edf1f7; border: 1px solid var(--line); }
+
+    .skeleton { background: linear-gradient(90deg,#edf1f7 25%,#f7f9fc 37%,#edf1f7 63%); background-size: 400% 100%; animation: sk 1.3s ease infinite; border-radius: 6px; }
+    @keyframes sk { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+    @media print { #filters, #refreshBtn { display: none; } .tbl thead th { position: static; } }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-  <header>
-    <h1>🏛️ LGPAS म्याद ट्र्याकर</h1>
-    <div class="sub">Compliance Document Submission Deadline Tracker — स्थानीय तह</div>
+
+  <header class="gov-bar">
+    <div class="gov-inner max-w-[1440px] mx-auto px-4 sm:px-8 py-5">
+
+      <!-- live date & time -->
+      <div class="clock-row">
+        <div class="dt-chip">
+          <i data-lucide="calendar-days"></i>
+          <span id="dateNp">—</span>
+          <span id="dateAd" class="muted"></span>
+        </div>
+        <div class="dt-chip">
+          <i data-lucide="clock-3"></i>
+          <span id="timeNp" class="dt-time">—</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4 min-w-0">
+          <div class="emblem shrink-0"><i data-lucide="landmark" class="w-7 h-7" style="color:var(--navy)"></i></div>
+          <div class="min-w-0">
+            <div class="text-[13px] font-semibold tracking-wide" style="color:#b9cdf0">LGPAS २.० · स्थानीय तह संस्थागत क्षमता स्वमूल्याङ्कन</div>
+            <h1 class="text-[22px] sm:text-[28px] font-extrabold leading-tight">कार्यतालिका, अनुगमन तथा मूल्याङ्कन प्रणाली</h1>
+            <div class="text-[14.5px] mt-0.5 font-medium" style="color:#d5e1f6" id="fyLabel">आर्थिक वर्ष —</div>
+          </div>
+        </div>
+        <button id="refreshBtn" class="live-pill shrink-0" title="अहिले अद्यावधिक गर्नुहोस्">
+          <span id="liveDot" class="live-dot"></span>
+          <span id="liveText">लोड हुँदैछ…</span>
+          <i data-lucide="refresh-cw" id="refreshIcon" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <div class="toolbar" style="margin-top:0;">
-    <label for="fySelect" style="font-size:0.85rem;color:var(--muted);">आ.व. (Fiscal Year):</label>
-    <select id="fySelect" onchange="setSelectedFY(this.value)"></select>
-    <span id="fyRange" style="font-size:0.78rem;color:var(--muted);"></span>
-  </div>
+  <main class="max-w-[1440px] mx-auto px-4 sm:px-8 py-6 space-y-5">
 
-  <div class="cards" id="cards"></div>
+    <!-- FILTERS -->
+    <section id="filters" class="card p-4 flex flex-col gap-3.5">
+      <div class="flex flex-col xl:flex-row gap-3 xl:items-center">
+        <div class="relative flex-1">
+          <i data-lucide="search" class="w-[18px] h-[18px] absolute left-3.5 top-[13px] pointer-events-none" style="color:var(--faint)"></i>
+          <input id="searchInput" type="search" class="field w-full !pl-11" placeholder="सूचक, उपसूचक नं., दस्तावेज वा शाखा खोज्नुहोस्…" autocomplete="off">
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <select id="monthFilter" class="field" aria-label="महिना"><option value="ALL">सबै महिना</option></select>
+          <select id="deptFilter" class="field" aria-label="शाखा"><option value="ALL">सबै शाखा</option></select>
+          <select id="sortSelect" class="field" aria-label="क्रम">
+            <option value="date">क्रम: म्याद अनुसार</option>
+            <option value="sn">क्रम: क्र.सं.</option>
+            <option value="score">क्रम: पूर्णाङ्क (उच्च)</option>
+          </select>
+        </div>
+      </div>
 
-  <div class="toolbar">
-    <div class="tabs" id="tabs"></div>
-    <button class="btn" onclick="openSettings()">⚙️ मिति सेटिङ</button>
-    <button class="btn primary" id="notifBtn" onclick="requestNotif()">🔔 सूचना सक्रिय गर्नुहोस्</button>
-    <span id="notifStatus"></span>
-  </div>
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="tabs" id="statusTabs" role="tablist">
+          <button class="tab active" data-filter="all" role="tab">सबै <span class="count" id="cntAll">०</span></button>
+          <button class="tab" data-filter="ended" role="tab">म्याद सकिएको <span class="count" id="cntEnded">०</span></button>
+          <button class="tab" data-filter="upcoming" role="tab">आगामी मात्र <span class="count" id="cntUpcoming">०</span></button>
+        </div>
+        <button id="resetFilters" class="btn"><i data-lucide="rotate-ccw"></i>फिल्टर रिसेट</button>
+      </div>
+    </section>
 
-  <div id="list"></div>
+    <!-- TABLE -->
+    <section class="card overflow-hidden">
+      <div class="overflow-auto max-h-[75vh]">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th class="w-20 text-center">क्र.सं.</th>
+              <th class="w-32">उपसूचक</th>
+              <th class="min-w-[360px]">सूचक र आवश्यक दस्तावेज</th>
+              <th class="w-44">म्याद</th>
+              <th class="w-28 text-center">पूर्णाङ्क</th>
+              <th class="w-56">सम्बन्धित शाखा</th>
+              <th class="w-52">बाँकी दिन</th>
+              <th class="w-48">स्थिति</th>
+            </tr>
+          </thead>
+          <tbody id="indicatorsTableBody"></tbody>
+        </table>
+      </div>
 
-  <footer>
-    कुल बुँदा: <span id="totalPts"></span> | पूरा भएको: <span id="donePts"></span><br>
-    मिति अनुमानित (BS→AD रूपान्तरण); हरेक वर्ष ⚙️ सेटिङमा गएर पुष्टि गर्नुहोस्।
-  </footer>
-</div>
+      <div id="tableEmptyState" class="hidden py-20 text-center">
+        <div class="w-14 h-14 mx-auto rounded-full grid place-items-center mb-4" style="background:#edf1f7">
+          <i data-lucide="search-x" class="w-6 h-6" style="color:var(--faint)"></i>
+        </div>
+        <p class="font-bold text-[17px]">कुनै पनि सूचक फेला परेन</p>
+        <p class="text-[14px] mt-1" style="color:var(--muted)">खोज वा फिल्टर परिवर्तन गरी पुनः प्रयास गर्नुहोस्।</p>
+      </div>
 
-<div class="modal-bg" id="settingsModal">
-  <div class="modal">
-    <h3>मिति सेटिङ (BS महिना अन्त्यको अनुमानित AD मिति)</h3>
-    <p>यी मितिहरू अनुमानित हुन् (±1-2 दिन फरक पर्न सक्छ)। सही मिति थाहा भएमा समायोजन गर्नुहोस्।</p>
-    <div id="dateSettingsList"></div>
-    <div style="display:flex;gap:8px;margin-top:16px;">
-      <button class="btn primary" onclick="saveSettings()">सुरक्षित गर्नुहोस्</button>
-      <button class="btn" onclick="closeSettings()">बन्द गर्नुहोस्</button>
-    </div>
-  </div>
-</div>
+      <div class="px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[14.5px]" style="background:#f5f8fd;border-top:1px solid var(--line)">
+        <div id="tableSummaryCount" style="color:var(--muted)">—</div>
+        <div class="flex items-center gap-2" style="color:var(--muted)">
+          देखिएका कार्यको पूर्णाङ्क <span class="score-badge" id="tableFilteredScore">०.००</span>
+        </div>
+      </div>
+    </section>
+  </main>
 
 <script>
-// Data embedded directly (no fetch) so this works instantly on GitHub Pages,
-// when opened as a local file, and regardless of server MIME/CORS quirks.
-// This is the same content as data.json — the email script (scripts/check_deadlines.py)
-// reads data.json separately, so if you edit items here, mirror the change there too.
-const DATA = {
-  "dates": {
-    "shrawan10":  {"m":7,  "d":26, "off":0, "label":"श्रावण १० गते"},
-    "shrawanEnd": {"m":8,  "d":16, "off":0, "label":"श्रावण मसान्त"},
-    "bhadraEnd":  {"m":9,  "d":16, "off":0, "label":"भाद्र मसान्त"},
-    "kartikEnd":  {"m":11, "d":16, "off":0, "label":"कार्तिक मसान्त / कार्तिक ३०"},
-    "mangsirEnd": {"m":12, "d":15, "off":0, "label":"मंसिर मसान्त / मङ्शिर ३०"},
-    "poushEnd":   {"m":1,  "d":14, "off":1, "label":"पौष मसान्त"},
-    "maghEnd":    {"m":2,  "d":12, "off":1, "label":"माघ मसान्त"},
-    "falgunEnd":  {"m":3,  "d":13, "off":1, "label":"फाल्गुन ३०"},
-    "chaitraEnd": {"m":4,  "d":12, "off":1, "label":"चैत्र मसान्त"},
-    "baisakhEnd": {"m":5,  "d":14, "off":1, "label":"बैसाख मसान्त (अनुमानित)"},
-    "jesthaEnd":  {"m":6,  "d":14, "off":1, "label":"जेष्ठ ३०"},
-    "ashadhEnd":  {"m":7,  "d":15, "off":1, "label":"असार मसान्त"}
-  },
-  "items": [
-    {"id":1, "title":"वार्षिक बजेट तथा कार्यक्रम पुस्तिकाको कुनै एक पाना", "pts":0.30, "dl":"shrawanEnd"},
-    {"id":2, "title":"मापदण्ड बमोजिम छनौट र प्राथमिकीकरण गरी कार्यपालिकाबाट स्वीकृत आयोजनाहरुको प्रमाणित सूची", "pts":0.40, "dl":"shrawanEnd"},
-    {"id":3, "title":"मध्ययमकालीन खर्च संरचना", "pts":0.30, "dl":"shrawanEnd"},
-    {"id":4, "title":"वार्षिक बजेट तथा कार्यक्रम प्रति", "pts":0.30, "dl":"shrawanEnd"},
-    {"id":5, "title":"आयोजना कार्यक्रमको दिगो विकास लक्ष्य साङ्केतीकरण गरिएको वार्षिक बजेट तथा कार्यक्रमको पानाको छायाँप्रति", "pts":0.40, "dl":"shrawanEnd"},
-    {"id":6, "title":"स्रोत अनुमान तथा बजेट सीमा निर्धारण समितिको आय प्रक्षेपण र बजेट सीमा निर्धारण निर्णय", "pts":0.30, "dl":"poushEnd"},
-    {"id":7, "title":"आगामी आ.व.को राजस्व र व्ययको अनुमान (बजेट) सभामा पेश भएको प्रमाणित प्रति", "pts":0.60, "dl":"shrawan10", "note":"असार १० गते सभामा पेश हुनुपर्ने, श्रावण १० गतेभित्र अपलोड"},
-    {"id":8, "title":"बजेट तथा कार्यक्रम सभाबाट पारित भएको प्रमाणित प्रति", "pts":0.40, "dl":"shrawanEnd", "note":"असार मसान्तभित्र पारित, श्रावण मसान्तभित्र अपलोड"},
-    {"id":9, "title":"वार्षिक बजेट तथा कार्यक्रममा अबण्डा नराखी बजेट बाँडफाँट गरिएको प्रमाणित प्रति", "pts":0.60, "dl":"shrawanEnd"},
-    {"id":10, "title":"आन्तरिक आय एवम् राजस्व बाँडफाँट आय र प्रशासनिक खर्च बजेटको तुलनात्मक विवरण", "pts":0.40, "dl":"shrawanEnd"},
-    {"id":11, "title":"आयोजना/कार्यक्रमको स्वीकृत वार्षिक कार्यान्वयन कार्ययोजना", "pts":0.30, "dl":"bhadraEnd"},
-    {"id":12, "title":"खरिद गुरुयोजनाको प्रति", "pts":0.30, "dl":"bhadraEnd"},
-    {"id":13, "title":"नागरिकका सरोकारका सूचना तथा विवरण — अघिल्लो आ.व. चौथो त्रैमासिक", "pts":0.10, "dl":"shrawanEnd"},
-    {"id":14, "title":"नागरिकका सरोकारका सूचना तथा विवरण — पहिलो त्रैमासिक", "pts":0.10, "dl":"kartikEnd"},
-    {"id":15, "title":"नागरिकका सरोकारका सूचना तथा विवरण — दोश्रो त्रैमासिक", "pts":0.10, "dl":"maghEnd"},
-    {"id":16, "title":"नागरिकका सरोकारका सूचना तथा विवरण — तेस्रो त्रैमासिक", "pts":0.10, "dl":"baisakhEnd"},
-    {"id":17, "title":"पहिलो चौमासिक सार्वजनिक सुनुवाइ कार्यक्रमको प्रतिवेदन", "pts":0.20, "dl":"mangsirEnd"},
-    {"id":18, "title":"दोस्रो चौमासिक सार्वजनिक सुनुवाइ कार्यक्रमको प्रतिवेदन", "pts":0.20, "dl":"chaitraEnd"},
-    {"id":19, "title":"तेस्रो चौमासिक सार्वजनिक सुनुवाइ कार्यक्रमको प्रतिवेदन", "pts":0.20, "dl":"shrawanEnd", "note":"आगामी आ.व.को श्रावण मसान्त"},
-    {"id":20, "title":"वार्षिक समीक्षा बैठकको आधारमा वार्षिक प्रगति प्रतिवेदन", "pts":0.30, "dl":"shrawanEnd"},
-    {"id":21, "title":"पहिलो त्रैमासिक समीक्षा बैठकको निर्णय सहितको प्रतिवेदन", "pts":0.10, "dl":"mangsirEnd"},
-    {"id":22, "title":"दोश्रो त्रैमासिक/अर्धवार्षिक समीक्षा बैठकको निर्णय सहितको प्रतिवेदन", "pts":0.10, "dl":"falgunEnd"},
-    {"id":23, "title":"तेस्रो त्रैमासिक समीक्षा बैठकको निर्णय सहितको प्रतिवेदन", "pts":0.10, "dl":"jesthaEnd"},
-    {"id":24, "title":"गैर सरकारी संस्थाका कार्यक्रमको प्रगति खुल्ने वार्षिक प्रगति प्रतिवेदनको छायाँ प्रति", "pts":0.40, "dl":"kartikEnd"},
-    {"id":25, "title":"कार्यपालिकाबाट स्वीकृत दिगो सुधारको समष्टिगत कार्ययोजना", "pts":0.40, "dl":"chaitraEnd"},
-    {"id":26, "title":"वित्तिय कारोबारको एकीकृत वित्तीय प्रतिवेदन (भिडान गरी तयार)", "pts":0.30, "dl":"kartikEnd"},
-    {"id":27, "title":"वित्तिय कारोबार एकीकृत वित्तीय प्रतिवेदन प्रदेश/कोष लेखा नियन्त्रक कार्यालयमा पठाएको", "pts":0.30, "dl":"kartikEnd"},
-    {"id":28, "title":"पहिलो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"kartikEnd"},
-    {"id":29, "title":"दोस्रो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"maghEnd"},
-    {"id":30, "title":"तेस्रो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"baisakhEnd", "note":"मूल कागजातमा मिति उल्लेख थिएन — ढाँचा अनुसार अनुमानित"},
-    {"id":31, "title":"चौथो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन", "pts":0.15, "dl":"shrawanEnd"},
-    {"id":32, "title":"बाँकी रकम फिर्ता दाखिला गरेको भौचर/प्रमाणको छायाँप्रति", "pts":0.40, "dl":"shrawanEnd"},
-    {"id":33, "title":"मानव अधिकार सम्बन्धी राष्ट्रिय कार्ययोजना कार्यान्वयन प्रगति — अर्धवार्षिक", "pts":0.20, "dl":"poushEnd"},
-    {"id":34, "title":"मानव अधिकार सम्बन्धी राष्ट्रिय कार्ययोजना कार्यान्वयन प्रगति — वार्षिक", "pts":0.20, "dl":"shrawanEnd"},
-    {"id":35, "title":"कूल निकाय मध्ये विद्युतीय हाजिरी कार्यान्वयनमा ल्याएका निकायको विवरण", "pts":0.00, "dl":"shrawanEnd"}
-  ]
+"use strict";
+
+/* =====================================================================
+   CONFIG
+   ===================================================================== */
+const DATA_URL = "./indicators.json";
+const REFRESH_MS = 60 * 1000;        // how often indicators.json is re-fetched
+const SOON_DAYS = 7;                 // "चाँडै सकिँदै" window
+
+/* Bikram Sambat (BS) helpers.
+   BS_ANCHORS: AD date of 1 Baisakh for each BS year.
+   BS_MONTH_LEN: days in each BS month. Add a new row every year from the
+   official calendar. Years missing here use typical month lengths. */
+const BS_ANCHORS = { 2082: "2025-04-14", 2083: "2026-04-14", 2084: "2027-04-14" };
+const BS_MONTH_LEN = {
+  2082: [31,31,32,32,31,30,30,29,30,29,30,30],
+  2083: [31,31,32,31,31,31,30,29,30,29,30,30],
+  2084: [31,32,31,32,31,30,30,30,29,30,29,31]
 };
-let DEFAULT_DATES = DATA.dates;
-let ITEMS = DATA.items;
+const BS_TYPICAL = [31,31,32,31,31,31,30,29,30,29,30,30];
 
-const LS_DATES='deadline_tracker_dates_v1';
-const LS_DONE='deadline_tracker_done_v1';
-const LS_NOTIFIED='deadline_tracker_notified_v1';
-const LS_FY='deadline_tracker_fy_v1';
+const MONTHS = {
+  "04": "श्रावण", "05": "भाद्र", "06": "आश्विन", "07": "कार्तिक", "08": "मंसिर", "09": "पौष",
+  "10": "माघ", "11": "फाल्गुण", "12": "चैत्र", "01": "वैशाख", "02": "जेष्ठ", "03": "आषाढ"
+};
+const FISCAL_ORDER = ["04","05","06","07","08","09","10","11","12","01","02","03"];
+const WEEKDAYS = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहीबार", "शुक्रबार", "शनिबार"];
+const AD_MONTHS = ["जनवरी","फेब्रुअरी","मार्च","अप्रिल","मे","जुन","जुलाई","अगस्ट","सेप्टेम्बर","अक्टोबर","नोभेम्बर","डिसेम्बर"];
+const DEPT_HUES = [212, 340, 160, 28, 265, 190, 95, 0];
 
-function getDates(){
-  const saved = JSON.parse(localStorage.getItem(LS_DATES)||'null');
-  return saved || JSON.parse(JSON.stringify(DEFAULT_DATES));
-}
-function getDone(){ return JSON.parse(localStorage.getItem(LS_DONE)||'{}'); }
-function setDone(o){ localStorage.setItem(LS_DONE, JSON.stringify(o)); }
+/* =====================================================================
+   STATE & UTILITIES
+   ===================================================================== */
+const $ = (id) => document.getElementById(id);
+const NP_DIGITS = "०१२३४५६७८९";
+const toNp = (v) => String(v ?? "").replace(/\d/g, (d) => NP_DIGITS[d]);
 
-function autoFYStartYear(today){
-  // FY starts mid-Shrawan (~Jul 16). If today is on/after Jul 16, FY start = this AD year, else previous year.
-  const cutoff = new Date(today.getFullYear(), 6, 16); // July 16
-  return today >= cutoff ? today.getFullYear() : today.getFullYear()-1;
+let DATA = [];
+let VIEW = [];
+let lastRaw = "";
+let deptHue = new Map();
+let statusFilter = "all";
+let TODAY = null;                    // { y, m, d, key, idx, fyStart }
+let usingOverride = false;
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[c]);
+}
+const refreshIcons = () => { if (window.lucide) lucide.createIcons(); };
+const codeOf = (item) => item.sub_indicator_no || item.indicator_no || "";
+
+function monthLen(y, m) { return (BS_MONTH_LEN[y] || BS_TYPICAL)[m - 1]; }
+function yearLen(y) { return (BS_MONTH_LEN[y] || BS_TYPICAL).reduce((a, b) => a + b, 0); }
+
+/* absolute BS day index – consistent ordering and "days left" */
+function bsIndex(y, m, d) {
+  let n = 0;
+  for (let yy = 2080; yy < y; yy++) n += yearLen(yy);
+  for (let mm = 1; mm < m; mm++) n += monthLen(y, mm);
+  return n + d;
 }
 
-// BS year runs ~57 years ahead of AD for the Shrawan-start fiscal year.
-function adYearToBSLabel(adStartYear){
-  const bsStart = adStartYear + 57;
-  const bsEnd = bsStart + 1;
-  return `${bsStart}/${String(bsEnd).slice(-2)}`;
+/* current date / time in Nepal */
+function nepalNow() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kathmandu", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23"
+  }).formatToParts(new Date());
+  const g = (t) => Number(parts.find((p) => p.type === t).value);
+  return { y: g("year"), mo: g("month"), d: g("day"), h: g("hour"), mi: g("minute"), s: g("second") };
 }
+const nepalTodayUTC = () => { const n = nepalNow(); return Date.UTC(n.y, n.mo - 1, n.d); };
 
-function getSelectedFY(){
-  const saved = localStorage.getItem(LS_FY);
-  return saved ? parseInt(saved) : autoFYStartYear(new Date());
-}
-function setSelectedFY(y){
-  localStorage.setItem(LS_FY, y);
-  populateFYSelect();
-  render();
-}
-function populateFYSelect(){
-  const auto = autoFYStartYear(new Date());
-  const selected = getSelectedFY();
-  const sel = document.getElementById('fySelect');
-  const options = [];
-  for(let y=auto-1; y<=auto+3; y++){
-    const isAuto = y===auto;
-    options.push(`<option value="${y}" ${y===selected?'selected':''}>आ.व. ${adYearToBSLabel(y)}${isAuto?' (चालू)':''}</option>`);
+function adToBs(adUtc) {
+  const years = Object.keys(BS_ANCHORS).map(Number).sort((a, b) => a - b);
+  let year = null;
+  for (const y of years) {
+    const [ay, am, ad] = BS_ANCHORS[y].split("-").map(Number);
+    if (Date.UTC(ay, am - 1, ad) <= adUtc) year = y;
   }
-  sel.innerHTML = options.join('');
-  const rangeStart = new Date(selected,6,16);
-  const rangeEnd = new Date(selected+1,6,15);
-  document.getElementById('fyRange').textContent =
-    `(${rangeStart.toLocaleDateString('en-CA')} — ${rangeEnd.toLocaleDateString('en-CA')})`;
+  if (year === null) return null;
+  const [ay, am, ad] = BS_ANCHORS[year].split("-").map(Number);
+  let days = Math.round((adUtc - Date.UTC(ay, am - 1, ad)) / 86400000);
+  let m = 1;
+  while (days >= monthLen(year, m) && m < 12) { days -= monthLen(year, m); m++; }
+  return { y: year, m, d: days + 1 };
 }
 
-function computeDeadline(dl, fyStart, DATES){
-  const d = DATES[dl];
-  const year = fyStart + d.off;
-  return new Date(year, d.m-1, d.d);
+function computeToday() {
+  // test override: lgpas.html?today=2083-07-28  (a BS date)
+  const q = new URLSearchParams(location.search).get("today");
+  let bs;
+  if (q && /^\d{4}-\d{1,2}-\d{1,2}$/.test(q)) {
+    const [y, m, d] = q.split("-").map(Number);
+    bs = { y, m, d };
+    usingOverride = true;
+  } else {
+    bs = adToBs(nepalTodayUTC());
+    usingOverride = false;
+  }
+  if (!bs) return null;
+  return { ...bs, key: bs.y * 10000 + bs.m * 100 + bs.d, idx: bsIndex(bs.y, bs.m, bs.d),
+           fyStart: bs.m >= 4 ? bs.y : bs.y - 1 };
 }
 
-function daysUntil(date, today){
-  const a = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const b = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  return Math.round((b-a)/86400000);
+/* the deadline of an item as a BS date inside the fiscal year of today */
+function deadlineOf(item) {
+  if (!TODAY) return null;
+  const parts = String(item.specified_date || "").split("/");
+  const m = parseInt(parts[0], 10), d = parseInt(parts[1], 10);
+  if (!(m >= 1 && m <= 12) || !(d >= 1 && d <= 32)) return null;
+  const y = m >= 4 ? TODAY.fyStart : TODAY.fyStart + 1;
+  return { y, m, d, key: y * 10000 + m * 100 + d, idx: bsIndex(y, m, d) };
 }
 
-let currentFilter = 'all';
+function statusOf(item) {
+  const dl = deadlineOf(item);
+  if (!dl) return { state: "none", days: null };
+  const days = dl.idx - TODAY.idx;
+  if (dl.key < TODAY.key) return { state: "ended", days };
+  return { state: days <= SOON_DAYS ? "soon" : "upcoming", days };
+}
+const isEnded = (item) => statusOf(item).state === "ended";
 
-function render(){
-  const today = new Date();
-  const DATES = getDates();
-  const done = getDone();
+function monthOf(item) {
+  const m = String(item.specified_date || "").split("/")[0].trim().padStart(2, "0");
+  return MONTHS[m] ? m : "";
+}
+const orderKey = (item) => { const dl = deadlineOf(item); return dl ? dl.idx : 99999999; };
 
-  const fy = getSelectedFY();
-  const enriched = ITEMS.map(it=>{
-    const ddate = computeDeadline(it.dl, fy, DATES);
-    const diff = daysUntil(ddate, today);
-    const isDone = !!done[it.id];
-    let status = 'upcoming';
-    if(isDone) status='done';
-    else if(diff<0) status='overdue';
-    else if(diff<=5) status='soon';
-    return {...it, ddate, diff, isDone, status};
-  }).sort((a,b)=> a.ddate - b.ddate);
-
-  // cards
-  const overdue = enriched.filter(x=>x.status==='overdue').length;
-  const soon = enriched.filter(x=>x.status==='soon').length;
-  const doneCount = enriched.filter(x=>x.status==='done').length;
-  document.getElementById('cards').innerHTML = `
-    <div class="card overdue"><div class="num">${overdue}</div><div class="lbl">म्याद नाघेको</div></div>
-    <div class="card soon"><div class="num">${soon}</div><div class="lbl">५ दिनभित्र (चाँडै)</div></div>
-    <div class="card ok"><div class="num">${doneCount}</div><div class="lbl">पूरा भएको</div></div>
-    <div class="card"><div class="num">${ITEMS.length}</div><div class="lbl">कुल सूचक</div></div>
-  `;
-
-  // tabs
-  const tabs=[['all','सबै'],['overdue','म्याद नाघेको'],['soon','चाँडै'],['upcoming','आगामी'],['done','पूरा भएको']];
-  document.getElementById('tabs').innerHTML = tabs.map(([k,l])=>
-    `<button class="tab ${currentFilter===k?'active':''}" onclick="setFilter('${k}')">${l}</button>`).join('');
-
-  // list
-  const filtered = currentFilter==='all' ? enriched : enriched.filter(x=>x.status===currentFilter);
-  document.getElementById('list').innerHTML = filtered.map(it=>{
-    const dateStr = it.ddate.toLocaleDateString('en-CA'); // YYYY-MM-DD
-    let badgeText = it.status==='overdue' ? `${Math.abs(it.diff)} दिन ढिलो`
-                  : it.status==='soon' ? `${it.diff} दिन बाँकी`
-                  : it.status==='done' ? 'पूरा भयो'
-                  : `${it.diff} दिन बाँकी`;
-    return `<div class="item ${it.status}">
-      <input type="checkbox" ${it.isDone?'checked':''} onchange="toggleDone(${it.id})">
-      <div class="body">
-        <div class="title">${it.title}</div>
-        <div class="meta">
-          <span class="badge ${it.status}">${badgeText}</span>
-          <span class="pts">${it.pts.toFixed(2)} पूर्णांक</span>
-          <span>म्याद: ${DATES[it.dl].label} (~${dateStr})</span>
-        </div>
-        ${it.note?`<div class="meta" style="margin-top:2px;"><span>📝 ${it.note}</span></div>`:''}
-      </div>
-    </div>`;
-  }).join('') || '<p style="color:var(--muted)">यस फिल्टरमा कुनै सूचक छैन।</p>';
-
-  document.getElementById('totalPts').textContent = ITEMS.reduce((s,i)=>s+i.pts,0).toFixed(2);
-  document.getElementById('donePts').textContent = ITEMS.filter(i=>done[i.id]).reduce((s,i)=>s+i.pts,0).toFixed(2);
-
-  checkNotifications(enriched);
+function deptStyle(dept) {
+  const h = deptHue.get(dept) ?? 212;
+  return `background:hsl(${h} 60% 94%);color:hsl(${h} 70% 24%);border:1px solid hsl(${h} 45% 80%)`;
 }
 
-function setFilter(k){ currentFilter=k; render(); }
-function toggleDone(id){
-  const done = getDone();
-  done[id] = !done[id];
-  setDone(done);
-  render();
+/* =====================================================================
+   LIVE CLOCK (date + time above the heading)
+   ===================================================================== */
+function periodOf(h) {
+  if (h < 12) return "बिहान";
+  if (h < 17) return "दिउँसो";
+  if (h < 20) return "साँझ";
+  return "राति";
 }
 
-// ---- Settings modal ----
-function openSettings(){
-  const DATES = getDates();
-  document.getElementById('dateSettingsList').innerHTML = Object.entries(DATES).map(([k,v])=>`
-    <div style="display:flex;align-items:center;gap:8px;margin:6px 0;font-size:0.85rem;">
-      <span style="flex:1;">${v.label}</span>
-      <input type="number" min="1" max="12" value="${v.m}" style="width:44px" id="m_${k}"> /
-      <input type="number" min="1" max="31" value="${v.d}" style="width:44px" id="d_${k}">
-    </div>`).join('');
-  document.getElementById('settingsModal').classList.add('show');
-}
-function closeSettings(){ document.getElementById('settingsModal').classList.remove('show'); }
-function saveSettings(){
-  const DATES = getDates();
-  Object.keys(DATES).forEach(k=>{
-    DATES[k].m = parseInt(document.getElementById('m_'+k).value)||DATES[k].m;
-    DATES[k].d = parseInt(document.getElementById('d_'+k).value)||DATES[k].d;
-  });
-  localStorage.setItem(LS_DATES, JSON.stringify(DATES));
-  closeSettings();
-  render();
+function tickClock() {
+  const n = nepalNow();
+  const h12 = n.h % 12 === 0 ? 12 : n.h % 12;
+  const two = (x) => String(x).padStart(2, "0");
+  $("timeNp").textContent = `${periodOf(n.h)} ${toNp(h12)}:${toNp(two(n.mi))}:${toNp(two(n.s))}`;
+
+  // roll the date over at midnight
+  const fresh = computeToday();
+  if (fresh && (!TODAY || fresh.key !== TODAY.key)) refreshToday();
+  else if (!TODAY && !fresh) paintDate();
 }
 
-// ---- Notifications ----
-function updateNotifStatus(){
-  const el = document.getElementById('notifStatus');
-  const btn = document.getElementById('notifBtn');
-  if(!('Notification' in window)){ el.textContent='यो ब्राउजरले सूचना समर्थन गर्दैन'; btn.style.display='none'; return; }
-  if(Notification.permission==='granted'){ el.textContent='✅ सूचना सक्रिय छ'; btn.style.display='none'; }
-  else if(Notification.permission==='denied'){ el.textContent='❌ सूचना ब्लक गरिएको'; btn.style.display='none'; }
-  else { el.textContent=''; btn.style.display='inline-block'; }
+function paintDate() {
+  const n = nepalNow();
+  const wd = WEEKDAYS[new Date(Date.UTC(n.y, n.mo - 1, n.d)).getUTCDay()];
+  if (TODAY) {
+    $("dateNp").textContent = `${wd}, ${toNp(TODAY.y)} ${MONTHS[String(TODAY.m).padStart(2, "0")]} ${toNp(TODAY.d)} गते`;
+    $("fyLabel").textContent = `आर्थिक वर्ष ${toNp(TODAY.fyStart)}/${toNp(String(TODAY.fyStart + 1).slice(2))}`;
+  } else {
+    $("dateNp").textContent = `${wd}`;
+    $("fyLabel").textContent = "आर्थिक वर्ष —";
+  }
+  $("dateAd").textContent = usingOverride ? "" : `(${toNp(n.d)} ${AD_MONTHS[n.mo - 1]} ${toNp(n.y)})`;
 }
-function requestNotif(){
-  Notification.requestPermission().then(()=>{ updateNotifStatus(); render(); });
+
+/* =====================================================================
+   LOADING (live JSON)
+   ===================================================================== */
+function setLive(ok, text) {
+  $("liveDot").classList.toggle("off", !ok);
+  $("liveText").textContent = text;
 }
-function checkNotifications(enriched){
-  if(!('Notification' in window) || Notification.permission!=='granted') return;
-  const notified = JSON.parse(localStorage.getItem(LS_NOTIFIED)||'{}');
-  const todayKey = new Date().toISOString().slice(0,10);
-  enriched.filter(x=>x.status==='soon' && !x.isDone).forEach(x=>{
-    const key = `${x.id}_${todayKey}`;
-    if(!notified[key]){
-      new Notification('⏰ म्याद नजिकिँदै छ', {
-        body: `${x.title}\nबाँकी ${x.diff} दिन (${x.pts.toFixed(2)} पूर्णांक)`,
-        tag: 'deadline_'+x.id
-      });
-      notified[key]=true;
+function clockShort() {
+  const n = nepalNow();
+  const h12 = n.h % 12 === 0 ? 12 : n.h % 12;
+  return `${toNp(h12)}:${toNp(String(n.mi).padStart(2, "0"))}`;
+}
+
+async function fetchData() {
+  const icon = $("refreshIcon");
+  icon.classList.add("spin");
+  try {
+    const res = await fetch(`${DATA_URL}?_=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) throw new Error(`indicators.json लोड भएन (HTTP ${res.status})`);
+    const raw = await res.text();
+    if (raw !== lastRaw) {
+      const data = JSON.parse(raw);
+      if (!Array.isArray(data)) throw new Error("indicators.json मा JSON array हुनुपर्छ।");
+      lastRaw = raw;
+      DATA = data;
+      onDataChanged();
     }
-  });
-  localStorage.setItem(LS_NOTIFIED, JSON.stringify(notified));
+    setLive(true, `प्रत्यक्ष · ${clockShort()} मा अद्यावधिक`);
+  } catch (error) {
+    console.error("Error fetching indicator data:", error);
+    setLive(false, "अफलाइन");
+    if (!DATA.length) showLoadError(error.message);
+  } finally {
+    setTimeout(() => icon.classList.remove("spin"), 400);
+  }
 }
 
-// check every hour while the tab stays open (in addition to on-load check)
-setInterval(render, 60*60*1000);
+function showLoadError(message) {
+  $("indicatorsTableBody").innerHTML = `
+    <tr><td colspan="8" style="text-align:center;padding:56px">
+      <div style="color:var(--crimson);font-weight:700;margin-bottom:6px;font-size:16px">${escapeHTML(message)}</div>
+      <div style="color:var(--muted);font-size:14px">lgpas.html र indicators.json एउटै फोल्डरमा राखी स्थानीय वेब सर्भरबाट खोल्नुहोस्।</div>
+    </td></tr>`;
+  $("tableSummaryCount").textContent = "डाटा लोड हुन सकेन";
+}
 
-populateFYSelect();
-updateNotifStatus();
-render();
+function showSkeleton() {
+  $("indicatorsTableBody").innerHTML = Array.from({ length: 6 }, () => `
+    <tr>${[40, 70, 300, 100, 50, 120, 110, 100].map((w) =>
+      `<td><div class="skeleton" style="height:18px;width:${w}px;max-width:100%"></div></td>`).join("")}</tr>`).join("");
+}
 
+function onDataChanged() {
+  const depts = [...new Set(DATA.map((d) => String(d.department || "").trim()).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, "ne"));
+  deptHue = new Map(depts.map((d, i) => [d, DEPT_HUES[i % DEPT_HUES.length]]));
+
+  const dSel = $("deptFilter"), cur = dSel.value;
+  dSel.innerHTML = '<option value="ALL">सबै शाखा</option>' +
+    depts.map((d) => `<option value="${escapeHTML(d)}">${escapeHTML(d)}</option>`).join("");
+  dSel.value = depts.includes(cur) ? cur : "ALL";
+
+  const mSel = $("monthFilter");
+  if (mSel.options.length <= 1) {
+    mSel.innerHTML = '<option value="ALL">सबै महिना</option>' +
+      FISCAL_ORDER.map((m) => `<option value="${m}">${MONTHS[m]}</option>`).join("");
+  }
+  refreshToday();
+}
+
+function refreshToday() {
+  TODAY = computeToday();
+  paintDate();
+  applyFilters();
+}
+
+/* =====================================================================
+   FILTER + RENDER
+   ===================================================================== */
+function applyFilters() {
+  const query = ($("searchInput").value || "").trim().toLocaleLowerCase();
+  const month = $("monthFilter").value;
+  const department = $("deptFilter").value;
+  const sort = $("sortSelect").value;
+
+  const base = DATA.filter((item) => {
+    if (query) {
+      const raw = [item.sn, item.indicator_no, item.indicator, item.sub_indicator_no, item.sub_indicator,
+        item.document, item.deadline_nepali, item.specified_date, item.score, item.department].join(" ");
+      const hay = (raw + " " + toNp(raw)).toLocaleLowerCase();
+      if (!hay.includes(query)) return false;
+    }
+    if (month !== "ALL" && monthOf(item) !== month) return false;
+    if (department !== "ALL" && (item.department || "") !== department) return false;
+    return true;
+  });
+
+  const ended = base.filter(isEnded).length;
+  $("cntAll").textContent = toNp(base.length);
+  $("cntEnded").textContent = toNp(ended);
+  $("cntUpcoming").textContent = toNp(base.length - ended);
+
+  VIEW = base.filter((item) => {
+    if (statusFilter === "ended") return isEnded(item);
+    if (statusFilter === "upcoming") return !isEnded(item);
+    return true;
+  });
+
+  if (sort === "date") VIEW.sort((a, b) => orderKey(a) - orderKey(b));
+  else if (sort === "score") VIEW.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
+
+  renderIndicators(VIEW);
+}
+
+function badgeHTML(item) {
+  const { state, days } = statusOf(item);
+  if (state === "ended") return `<span class="badge ended"><i></i>म्याद सकियो</span>`;
+  if (state === "soon") return `<span class="badge soon"><i></i>${days === 0 ? "आज अन्तिम दिन" : "चाँडै सकिँदै"}</span>`;
+  if (state === "upcoming") return `<span class="badge upcoming"><i></i>आगामी</span>`;
+  return `<span class="badge none"><i></i>मिति छैन</span>`;
+}
+
+function daysCellHTML(item) {
+  const { state, days } = statusOf(item);
+  if (state === "none") return `<span style="color:var(--faint)">—</span>`;
+  let color = "var(--ok)", main, sub;
+  if (state === "ended") {
+    color = "var(--crimson)"; main = toNp(Math.abs(days)); sub = "दिन नाघेको";
+  } else if (days === 0) {
+    color = "var(--warn)"; main = "आज"; sub = "अन्तिम दिन";
+  } else {
+    if (state === "soon") color = "var(--warn)";
+    main = toNp(days); sub = "दिन बाँकी";
+  }
+  return `<div style="color:${color};line-height:1.1;display:flex;align-items:baseline;gap:6px">
+      <span style="font-size:30px;font-weight:800">${main}</span>
+      <span style="font-size:15px;font-weight:600">${sub}</span>
+    </div>`;
+}
+
+function renderIndicators(data) {
+  const tbody = $("indicatorsTableBody");
+  const empty = $("tableEmptyState");
+
+  if (!data.length) {
+    tbody.innerHTML = "";
+    empty.classList.remove("hidden");
+  } else {
+    empty.classList.add("hidden");
+    tbody.innerHTML = data.map((item) => {
+      const st = statusOf(item).state;
+      const rowCls = st === "ended" ? "row-ended" : st === "soon" ? "row-soon" : st === "upcoming" ? "row-upcoming" : "";
+      return `
+      <tr class="${rowCls}">
+        <td style="text-align:center;color:var(--faint);font-weight:700">${escapeHTML(toNp(item.sn))}</td>
+        <td><span class="code-chip">${escapeHTML(toNp(codeOf(item)))}</span></td>
+        <td>
+          <div style="font-weight:700;color:var(--ink);line-height:1.55;font-size:16px">${escapeHTML(item.indicator)}</div>
+          ${item.sub_indicator ? `<div style="color:var(--muted);font-size:14.5px;margin-top:4px;line-height:1.6">${escapeHTML(item.sub_indicator)}</div>` : ""}
+          ${item.document ? `<div style="display:flex;gap:9px;margin-top:11px;font-size:14.5px;color:#2f3d5a;line-height:1.6;padding:9px 12px;background:#f2f6fc;border-radius:9px;border:1px solid var(--line-soft)">
+            <i data-lucide="file-text" style="width:16px;height:16px;margin-top:5px;flex-shrink:0;color:var(--navy-2)"></i>
+            <span>${escapeHTML(item.document)}</span></div>` : ""}
+        </td>
+        <td>
+          <div style="color:var(--navy);font-weight:700;font-size:15.5px">${escapeHTML(toNp(item.deadline_nepali) || "—")}</div>
+          <div style="color:var(--faint);font-size:13.5px;margin-top:3px">${escapeHTML(toNp(item.specified_date || ""))}</div>
+        </td>
+        <td style="text-align:center"><span class="score-badge">${escapeHTML(toNp(item.score))}</span></td>
+        <td>${item.department
+          ? `<span class="chip" style="${deptStyle(item.department)}">${escapeHTML(item.department)}</span>`
+          : `<span style="color:var(--faint)">तोकिएको छैन</span>`}</td>
+        <td>${daysCellHTML(item)}</td>
+        <td>${badgeHTML(item)}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  $("tableSummaryCount").textContent = `देखाउँदै: ${toNp(data.length)} / ${toNp(DATA.length)} वटा कार्यहरू`;
+  $("tableFilteredScore").textContent = toNp(data.reduce((s, i) => s + (Number(i.score) || 0), 0).toFixed(2));
+  refreshIcons();
+}
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  $("searchInput").addEventListener("input", applyFilters);
+  ["monthFilter", "deptFilter", "sortSelect"].forEach((id) => $(id).addEventListener("change", applyFilters));
+
+  $("statusTabs").addEventListener("click", (e) => {
+    const btn = e.target.closest(".tab");
+    if (!btn) return;
+    statusFilter = btn.dataset.filter;
+    $("statusTabs").querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b === btn));
+    applyFilters();
+  });
+
+  $("resetFilters").addEventListener("click", () => {
+    $("searchInput").value = "";
+    $("monthFilter").value = "ALL";
+    $("deptFilter").value = "ALL";
+    $("sortSelect").value = "date";
+    statusFilter = "all";
+    $("statusTabs").querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.filter === "all"));
+    applyFilters();
+  });
+
+  $("refreshBtn").addEventListener("click", fetchData);
+
+  // live JSON: poll regularly and when the tab becomes visible again
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) fetchData(); });
+  setInterval(() => { if (!document.hidden) fetchData(); }, REFRESH_MS);
+
+  // live clock
+  TODAY = computeToday();
+  paintDate();
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  showSkeleton();
+  refreshIcons();
+  fetchData();
+});
 </script>
 </body>
 </html>
