@@ -9,8 +9,34 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
+  },
+  {
+    "sn": 100,
+    "indicator_no": "1.5.11",
+    "indicator": "अनुदान व्यवस्थापन",
+    "sub_indicator_no": "1.5.11.2",
+    "sub_indicator": "नेपाल सरकार तथा प्रदेश सरकारबाट प्राप्त अनुदानको खर्च नभई बाँकी रहेको रकम फिर्ता गरेको",
+    "document": "क. बाँकी रकम फिर्ता दाखिला गरेको भौचर/प्रमाणको छायाँप्रति",
+    "specified_date": "06/29",
+    "deadline_nepali": "श्रावण मसान्त भित्र",
+    "score": 0.4,
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
+  },
+  {
+    "sn": 160,
+    "indicator_no": "1.5.8",
+    "indicator": "आन्तरिक लेखा परीक्षण",
+    "sub_indicator_no": "1.5.8.1",
+    "sub_indicator": "त्रैमासिक रूपमा आन्तरिक लेखापरीक्षण सम्पन्न गरी सोको प्रतिवेदन अध्यक्ष/प्रमुख समक्ष पेश भएको",
+    "document": "घ. अध्यक्ष/ प्रमुख समक्ष पेश भएको चौथो त्रैमासिक आन्तरिक लेखापरीक्षण प्रतिवेदन",
+    "specified_date": "06/29",
+    "deadline_nepali": "श्रावण मसान्त भित्र",
+    "score": 0.15,
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 2,
@@ -22,8 +48,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 3,
@@ -35,8 +61,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.4,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 4,
@@ -48,8 +74,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 5,
@@ -61,8 +87,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 6,
@@ -74,8 +100,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.4,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 7,
@@ -87,8 +113,8 @@
     "specified_date": "09/30",
     "deadline_nepali": "पौष मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 8,
@@ -100,8 +126,8 @@
     "specified_date": "09/30",
     "deadline_nepali": "पौष मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 9,
@@ -113,8 +139,8 @@
     "specified_date": "04/10",
     "deadline_nepali": "श्रावण १० (असार १० सभा पेश)",
     "score": 0.6,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 10,
@@ -126,8 +152,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त (असार मसान्त सभा पारित)",
     "score": 0.4,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 11,
@@ -139,8 +165,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.6,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 12,
@@ -152,8 +178,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.4,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 13,
@@ -165,8 +191,8 @@
     "specified_date": "05/31",
     "deadline_nepali": "भाद्र मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 14,
@@ -178,8 +204,8 @@
     "specified_date": "05/31",
     "deadline_nepali": "भाद्र मसान्त",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 15,
@@ -191,8 +217,8 @@
     "specified_date": "04/07",
     "deadline_nepali": "श्रावण ७ (असार मसान्त सभा पछी)",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 16,
@@ -204,8 +230,8 @@
     "specified_date": "10/07",
     "deadline_nepali": "माघ ७ (पौष मसान्त सभा पछी)",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 17,
@@ -217,8 +243,8 @@
     "specified_date": "04/30",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 18,
@@ -230,8 +256,8 @@
     "specified_date": "05/30",
     "deadline_nepali": "भाद्र मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 19,
@@ -243,8 +269,8 @@
     "specified_date": "06/30",
     "deadline_nepali": "असोज मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 20,
@@ -256,8 +282,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 21,
@@ -269,8 +295,8 @@
     "specified_date": "08/30",
     "deadline_nepali": "मंसिर मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 22,
@@ -282,8 +308,8 @@
     "specified_date": "09/30",
     "deadline_nepali": "पौष मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 23,
@@ -295,8 +321,8 @@
     "specified_date": "10/30",
     "deadline_nepali": "माघ मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 24,
@@ -308,8 +334,8 @@
     "specified_date": "11/30",
     "deadline_nepali": "फाल्गुण मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 25,
@@ -321,8 +347,8 @@
     "specified_date": "12/30",
     "deadline_nepali": "चैत्र मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 26,
@@ -334,8 +360,8 @@
     "specified_date": "01/30",
     "deadline_nepali": "बैशाख मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 27,
@@ -347,8 +373,8 @@
     "specified_date": "02/30",
     "deadline_nepali": "जेष्ठ मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 28,
@@ -360,8 +386,8 @@
     "specified_date": "03/30",
     "deadline_nepali": "असार मसान्त",
     "score": 0.03,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 29,
@@ -373,8 +399,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 30,
@@ -386,8 +412,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक मसान्त",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 31,
@@ -399,8 +425,8 @@
     "specified_date": "10/30",
     "deadline_nepali": "माघ मसान्त",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 32,
@@ -412,8 +438,8 @@
     "specified_date": "01/30",
     "deadline_nepali": "बैशाख मसान्त",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 33,
@@ -425,8 +451,8 @@
     "specified_date": "08/30",
     "deadline_nepali": "मंसिर मसान्त",
     "score": 0.2,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 34,
@@ -438,8 +464,8 @@
     "specified_date": "12/30",
     "deadline_nepali": "चैत्र मसान्त",
     "score": 0.2,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 35,
@@ -451,8 +477,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "आगामी श्रावण मसान्त",
     "score": 0.2,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 36,
@@ -464,8 +490,8 @@
     "specified_date": "04/30",
     "deadline_nepali": "श्रावण ३० भित्र",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 37,
@@ -477,8 +503,8 @@
     "specified_date": "08/30",
     "deadline_nepali": "मंसिर मसान्त भित्र",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 38,
@@ -490,8 +516,8 @@
     "specified_date": "11/30",
     "deadline_nepali": "फाल्गुण ३० भित्र",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 39,
@@ -503,8 +529,8 @@
     "specified_date": "02/30",
     "deadline_nepali": "जेष्ठ ३० भित्र",
     "score": 0.1,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 40,
@@ -516,8 +542,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक ३०",
     "score": 0.4,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 41,
@@ -529,8 +555,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 42,
@@ -542,8 +568,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त",
     "score": 0,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 43,
@@ -555,8 +581,8 @@
     "specified_date": "05/30",
     "deadline_nepali": "भाद्र ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 44,
@@ -568,8 +594,8 @@
     "specified_date": "06/30",
     "deadline_nepali": "आश्विन ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 45,
@@ -581,8 +607,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 46,
@@ -594,8 +620,8 @@
     "specified_date": "08/30",
     "deadline_nepali": "मङ्सिर ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 47,
@@ -607,8 +633,8 @@
     "specified_date": "09/30",
     "deadline_nepali": "पौष ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 48,
@@ -620,8 +646,8 @@
     "specified_date": "10/30",
     "deadline_nepali": "माघ ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 49,
@@ -633,8 +659,8 @@
     "specified_date": "11/30",
     "deadline_nepali": "फाल्गुन ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 50,
@@ -646,8 +672,8 @@
     "specified_date": "12/30",
     "deadline_nepali": "चैत्र ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 51,
@@ -659,8 +685,8 @@
     "specified_date": "01/30",
     "deadline_nepali": "वैशाख ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 52,
@@ -672,8 +698,8 @@
     "specified_date": "02/30",
     "deadline_nepali": "जेष्ठ ३०",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 53,
@@ -685,8 +711,8 @@
     "specified_date": "03/32",
     "deadline_nepali": "आषाढ ३२",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 54,
@@ -698,8 +724,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण ३२",
     "score": 0.05,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
   {
     "sn": 55,
@@ -711,8 +737,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक ३०",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "लेखा",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 56,
@@ -724,8 +750,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक ३०",
     "score": 0.3,
-    "department": "",
-    "reciver_email": ""
+    "department": "लेखा",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 57,
@@ -737,8 +763,8 @@
     "specified_date": "07/30",
     "deadline_nepali": "कार्तिक मसान्त भित्र",
     "score": 0.15,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 58,
@@ -750,8 +776,8 @@
     "specified_date": "10/30",
     "deadline_nepali": "माघ मसान्त भित्र",
     "score": 0.15,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 59,
@@ -763,8 +789,8 @@
     "specified_date": "01/30",
     "deadline_nepali": "बैसाख मसान्त भित्र",
     "score": 0.15,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.comऽ benighatrorangmun@gmail.com"
   },
   {
     "sn": 60,
@@ -776,8 +802,8 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त भित्र",
     "score": 0.15,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "ac.brrm@gmail.com, benighatrorangmun@gmail.com"
   },
   {
     "sn": 61,
@@ -789,10 +815,9 @@
     "specified_date": "04/32",
     "deadline_nepali": "श्रावण मसान्त भित्र",
     "score": 0.4,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   },
- 
   {
     "sn": 62,
     "indicator_no": "1.6.2",
@@ -803,7 +828,7 @@
     "specified_date": "10/30",
     "deadline_nepali": "माघ मसान्त सम्म",
     "score": 0.6,
-    "department": "",
-    "reciver_email": ""
+    "department": "प्रशासन",
+    "reciver_email": "benighatrorangmun@gmail.com"
   }
 ]
